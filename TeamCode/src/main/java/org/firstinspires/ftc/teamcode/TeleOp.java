@@ -123,7 +123,7 @@ public class TeleOp extends LinearOpMode
             }
 
             // Feedback
-
+            telemetry.addLine("Driver Feedback");
             telemetry.addData("Drive speed is ", (blnChangeSpeed) ? "100%" : "50%");
             telemetry.addData("Lift Motor(Glyph)",  "%.2f", fltLift);
             telemetry.update();
