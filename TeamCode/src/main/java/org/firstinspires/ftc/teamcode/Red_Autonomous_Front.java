@@ -122,6 +122,7 @@ public class Red_Autonomous_Front extends LinearOpMode
             //  sleep(250);   // optional pause after each move
         }
     }
+
     public void ReadJewel(boolean JewelBlueDesired)
     {
         boolean SensorBlue;
@@ -133,28 +134,32 @@ public class Red_Autonomous_Front extends LinearOpMode
         robot.JSX.setPosition(.5);
         sleep(1500);
 
-        if(robot.colorSensor.blue()  > robot.colorSensor.red())
+        String readJewel;
+        if (robot.colorSensor.blue() > robot.colorSensor.red())
         {
             sleep(500);
-            SensorBlue = true;
+            readJewel = "Blue";
+        }
+        else if (robot.colorSensor.red() > robot.colorSensor.blue())
+        {
+            sleep(500);
+            readJewel = "Red";
         }
         else
         {
             sleep(500);
-            SensorBlue = false;
+            readJewel = "None";
         }
 
-        telemetry.addData("Jewel is ", (SensorBlue) ? "BLUE" : "RED");
-        telemetry.update();
-
-        if(SensorBlue ^ JewelBlueDesired)
+        if (readJewel == "Blue")
         {
             robot.JSX.setPosition(0);
         }
-        else
+        else if(readJewel == "Red")
         {
             robot.JSX.setPosition(1);
         }
+
         sleep(1000);
         robot.JSY.setPosition(.7);
         robot.JSX.setPosition(.5);
