@@ -68,10 +68,11 @@ public class K9bot
     public Servo rightGripper = null;
     public DcMotor relicMotor = null;
     public Servo claw = null;
-    public Servo clawY = null;
+    //public Servo clawY = null;
     //JSX = X movement of jewel, JSY = Y movement of jewel.
     public Servo JSY = null;
     public Servo JSX = null;
+    public Servo wedge = null;
     public ColorSensor colorSensor = null;
 
     /* Local OpMode members. */
@@ -103,14 +104,16 @@ public class K9bot
 
         // Set motors direction
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        liftMotor.setDirection(DcMotor.Direction.REVERSE);
 
         // Define and initialize ALL installed servos.
         leftGripper = hwMap.get(Servo.class, "Left Gripper");
         rightGripper = hwMap.get(Servo.class, "Right Gripper");
         claw = hwMap.get(Servo.class, "Claw");
-        clawY = hwMap.get(Servo.class, "Claw Y");
+        //clawY = hwMap.get(Servo.class, "Claw Y");
         JSY = hwMap.get(Servo.class, "Jewel Servo One");
         JSX = hwMap.get(Servo.class, "Jewel Servo Two");
+        wedge = hwMap.get(Servo.class, "Wedge");
 
         // Define color/distance sensor
         colorSensor = hwMap.get(ColorSensor.class, "Color Sensor");

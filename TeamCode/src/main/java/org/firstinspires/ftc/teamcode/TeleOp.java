@@ -37,9 +37,10 @@ public class TeleOp extends LinearOpMode
 
         waitForStart();
 
-        // Jewel
+        // Jewel & Wedge init
         robot.JSX.setPosition(.5);
         robot.JSY.setPosition(.7);
+        robot.wedge.setPosition(.5);
 
         while(opModeIsActive())
         {
@@ -91,16 +92,16 @@ public class TeleOp extends LinearOpMode
             // Claw Y Axis
             if (gamepad2.dpad_up)
             {
-                robot.clawY.setPosition(1);
+                //robot.clawY.setPosition(1);
             }
             else if (gamepad2.dpad_down)
             {
-                robot.clawY.setPosition(0);
+                //robot.clawY.setPosition(0);
             }
 
             // Lift
             float fltLift = gamepad2.left_stick_y;
-            robot.liftMotor.setPower(fltLift);
+            robot.liftMotor.setPower(-fltLift);
 
             // Gripper
             if (gamepad2.b)
@@ -120,6 +121,16 @@ public class TeleOp extends LinearOpMode
                 //Open Less for moving away from the cryptobox
                 robot.leftGripper.setPosition(.2);
                 robot.rightGripper.setPosition(.8);
+            }
+
+            //Wedge for getting on balancing board
+            if(gamepad2.left_bumper)
+            {
+                robot.wedge.setPosition(.1);
+            }
+            else if(gamepad2.right_bumper)
+            {
+                robot.wedge.setPosition(.5);
             }
 
             // Feedback
