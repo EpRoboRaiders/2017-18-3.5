@@ -122,7 +122,6 @@ public class Blue_Autonomous_Front extends LinearOpMode
         {
             blnSensorRed = true;
         }
-
         if(blnSensorRed ^ blnSensorBlue) //Makes sure one color is true
         {
             if (blnSensorBlue ^ blnBlueAlliance)

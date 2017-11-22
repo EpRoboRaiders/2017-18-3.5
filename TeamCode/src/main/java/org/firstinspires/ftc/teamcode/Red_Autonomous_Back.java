@@ -121,7 +121,6 @@ public class Red_Autonomous_Back extends LinearOpMode
         {
             blnSensorRed = true;
         }
-
         if(blnSensorRed ^ blnSensorBlue) //Makes sure one color is true
         {
             if (blnSensorBlue ^ blnBlueAlliance)

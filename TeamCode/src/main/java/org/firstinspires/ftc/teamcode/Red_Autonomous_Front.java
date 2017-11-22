@@ -113,16 +113,16 @@ public class Red_Autonomous_Front extends LinearOpMode
         robot.JSX.setPosition(.5);
         sleep(1500);
 
-        if (robot.colorSensor.blue() > robot.colorSensor.red())
+        if (robot.colorSensor.blue() > robot.colorSensor.red()) //Test if blue
         {
             blnSensorBlue = true;
         }
         else if (robot.colorSensor.red() > robot.colorSensor.blue())
-        {
+        { //Test if red
+
             blnSensorRed = true;
         }
-
-        if(blnSensorRed ^ blnSensorBlue) //Makes sure one color is true
+        if (blnSensorRed ^ blnSensorBlue) //Makes sure one color is true
         {
             if (blnSensorBlue ^ blnBlueAlliance)
             {
@@ -139,11 +139,11 @@ public class Red_Autonomous_Front extends LinearOpMode
         robot.JSX.setPosition(.5);
     }
 
-    public void encoderMovement(VuPos intColumn /*Vuforia code (Finds which VuMark is present*/)
+    public void encoderMovement(VuPos Column /*Vuforia code (Finds which VuMark is present*/)
     {
         encoderDrive(.5, 13, -13);//Turn Right
 
-        switch(intColumn)
+        switch(Column)
         {
             case LEFT:
                 encoderDrive(.5, 43, 43); //Left

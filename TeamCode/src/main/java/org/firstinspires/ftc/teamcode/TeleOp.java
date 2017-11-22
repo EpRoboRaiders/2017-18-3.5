@@ -62,21 +62,21 @@ public class TeleOp extends LinearOpMode
                 blnStillPressed = false;
             }
 
-            double blnSpeed = blnChangeSpeed ? 1 : .50;
+            double dblSpeed = blnChangeSpeed ? 1 : .50;
             if(gamepad1.right_bumper)
             {
-                robot.leftMotor.setPower(blnSpeed);
-                robot.rightMotor.setPower(blnSpeed);
+                robot.leftMotor.setPower(dblSpeed);
+                robot.rightMotor.setPower(dblSpeed);
             }
             else if (gamepad1.left_bumper)
             {
-                robot.leftMotor.setPower(-blnSpeed);
-                robot.rightMotor.setPower(-blnSpeed);
+                robot.leftMotor.setPower(-dblSpeed);
+                robot.rightMotor.setPower(-dblSpeed);
             }
             else
             {
-                robot.leftMotor.setPower(-fltLeft * blnSpeed);
-                robot.rightMotor.setPower(-fltRight * blnSpeed);
+                robot.leftMotor.setPower(-fltLeft * dblSpeed);
+                robot.rightMotor.setPower(-fltRight * dblSpeed);
             }
 
             // Claw
