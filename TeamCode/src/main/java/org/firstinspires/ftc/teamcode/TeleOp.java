@@ -126,7 +126,7 @@ public class TeleOp extends LinearOpMode
             //Wedge for getting on balancing board
             if(gamepad2.left_bumper)
             {
-                robot.wedge.setPosition(.1);
+                robot.wedge.setPosition(0);
             }
             else if(gamepad2.right_bumper)
             {

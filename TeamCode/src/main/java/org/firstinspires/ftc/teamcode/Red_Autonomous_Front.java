@@ -11,6 +11,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Autonomous(name="Red Autonomous Front", group="K9bot")
 //@Disabled
 
@@ -48,49 +51,13 @@ public class Red_Autonomous_Front extends LinearOpMode
         waitForStart();
 
         initPhase();//Sets default positions of all parts
-        readJewel(); //Does jewel code
-        encoderMovement(getColumnPos()); //Goes to proper column via VuMark
+        readJewel();//Hits correct jewel off platform
+        robotMovement(getColumnPos());//Goes to proper column via VuMark
         endPhase();//Puts block down and pushes in
     }
 
-    public void encoderDrive(double speed, double leftInches, double rightInches)
+    public void initPhase()
     {
-        int newLeftTarget;
-        int newRightTarget;
-
-        if (opModeIsActive())
-        {
-
-            newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.rightMotor.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            robot.leftMotor.setTargetPosition(newLeftTarget);
-            robot.rightMotor.setTargetPosition(newRightTarget);
-
-            robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            runtime.reset();
-            robot.leftMotor.setPower(Math.abs(speed));
-            robot.rightMotor.setPower(Math.abs(speed));
-
-            while (opModeIsActive() && (robot.leftMotor.isBusy() && robot.rightMotor.isBusy()))
-            {
-
-                telemetry.addData("Path 1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path 2",  "Running at %7d :%7d",
-                        robot.leftMotor.getCurrentPosition(),
-                        robot.rightMotor.getCurrentPosition());
-                telemetry.update();
-            }
-
-            robot.leftMotor.setPower(0);
-            robot.rightMotor.setPower(0);
-            robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
-    }
-
-    public void initPhase() {
         //Set servos to default positions
         robot.JSX.setPosition(.5);
         robot.JSY.setPosition(.7);
@@ -101,66 +68,51 @@ public class Red_Autonomous_Front extends LinearOpMode
         robot.liftMotor.setPower(0);
     }
 
+    public boolean readingJewel = true;
     public void readJewel()
     {
-        boolean blnSensorRed = false;
-        boolean blnSensorBlue = false;
-
-        robot.colorSensor.enableLed(true);
-
-        //set initial positions of JS2 and swing JS1 in between the balls
-        robot.JSY.setPosition(.06);
-        robot.JSX.setPosition(.5);
-        sleep(1500);
-
-        if (robot.colorSensor.blue() > robot.colorSensor.red()) //Test if blue
-        {
-            blnSensorBlue = true;
-        }
-        else if (robot.colorSensor.red() > robot.colorSensor.blue())
-        { //Test if red
-
-            blnSensorRed = true;
-        }
-        if (blnSensorRed ^ blnSensorBlue) //Makes sure one color is true
-        {
-            if (blnSensorBlue ^ blnBlueAlliance)
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable(){
+            public void run()
             {
-                robot.JSX.setPosition(0);
+                boolean blnSensorRed = false;
+                boolean blnSensorBlue = false;
+                robot.colorSensor.enableLed(true);
+
+                //set initial positions of JS2 and swing JS1 in between the balls
+                robot.JSY.setPosition(.04);
+                robot.JSX.setPosition(.5);
+                sleep(1500);
+
+                if (robot.colorSensor.blue() > robot.colorSensor.red()) //Test if blue
+                {
+                    blnSensorBlue = true;
+                }
+                else if (robot.colorSensor.red() > robot.colorSensor.blue()) //Test if red
+                {
+                    blnSensorRed = true;
+                }
+                if (blnSensorRed ^ blnSensorBlue) //Makes sure one color is true
+                {
+                    if (blnSensorBlue ^ blnBlueAlliance)
+                    {
+                        robot.JSX.setPosition(0);
+                    }
+                    else
+                    {
+                        robot.JSX.setPosition(1);
+                    }
+                }
+
+                sleep(1000);
+                robot.JSY.setPosition(.7);
+                robot.JSX.setPosition(.5);
+                readingJewel = false;
             }
-            else
-            {
-                robot.JSX.setPosition(1);
-            }
-        }
-
-        sleep(1000);
-        robot.JSY.setPosition(.7);
-        robot.JSX.setPosition(.5);
-    }
-
-    public void encoderMovement(VuPos Column /*Vuforia code (Finds which VuMark is present*/)
-    {
-        encoderDrive(.5, 13, -13);//Turn Right
-
-        switch(Column)
-        {
-            case LEFT:
-                encoderDrive(.5, 43, 43); //Left
-                break;
-            case RIGHT:
-                encoderDrive(.5, 28, 28); //Right
-                break;
-            case CENTER:
-                encoderDrive(.5, 35.5, 35.5); //Center
-                break;
-        }
-        encoderDrive(.5, 13, -13);//Turn Right
-        encoderDrive(.5, 9, 9);//Forward
+        });
     }
 
     VuforiaLocalizer vuforia;
-
     public VuPos getColumnPos() //Vuforia code (reads the VuMark)
     {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -210,6 +162,71 @@ public class Red_Autonomous_Front extends LinearOpMode
             telemetry.update();
         }
         return VuPos.CENTER;
+    }
+
+    public void encoderDrive(double speed, double leftInches, double rightInches)
+    {
+        int newLeftTarget;
+        int newRightTarget;
+
+        if (opModeIsActive())
+        {
+
+            newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget = robot.rightMotor.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            robot.leftMotor.setTargetPosition(newLeftTarget);
+            robot.rightMotor.setTargetPosition(newRightTarget);
+
+            robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            runtime.reset();
+            robot.leftMotor.setPower(Math.abs(speed));
+            robot.rightMotor.setPower(Math.abs(speed));
+
+            while (opModeIsActive() && (robot.leftMotor.isBusy() && robot.rightMotor.isBusy()))
+            {
+
+                telemetry.addData("Path 1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path 2",  "Running at %7d :%7d",
+                        robot.leftMotor.getCurrentPosition(),
+                        robot.rightMotor.getCurrentPosition());
+                telemetry.update();
+            }
+
+            robot.leftMotor.setPower(0);
+            robot.rightMotor.setPower(0);
+            robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+    public void robotMovement(VuPos enumColumn)
+    {
+        boolean robotMovementFinished = false;
+        while (opModeIsActive() && !robotMovementFinished)
+        {
+            if (!readingJewel)
+            {
+                encoderDrive(.5, 13, -13);//Turn Right
+
+                switch (enumColumn)
+                {
+                    case LEFT:
+                        encoderDrive(.5, 43, 43); //Left
+                        break;
+                    case RIGHT:
+                        encoderDrive(.5, 28, 28); //Right
+                        break;
+                    case CENTER:
+                        encoderDrive(.5, 35.5, 35.5); //Center
+                        break;
+                }
+                encoderDrive(.5, 13, -13);//Turn Right
+                encoderDrive(.5, 9, 9);//Forward
+                robotMovementFinished = true;
+            }
+        }
     }
 
     public void endPhase()
