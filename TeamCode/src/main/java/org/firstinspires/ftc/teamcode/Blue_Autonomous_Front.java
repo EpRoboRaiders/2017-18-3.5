@@ -65,7 +65,7 @@ public class Blue_Autonomous_Front extends LinearOpMode
         robot.leftGripper.setPosition(0);
         robot.rightGripper.setPosition(1);
         robot.liftMotor.setPower(1);
-        sleep(1000);
+        sleep(500);
         robot.liftMotor.setPower(0);
     }
 
@@ -233,7 +233,7 @@ public class Blue_Autonomous_Front extends LinearOpMode
     public void endPhase()
     {
         robot.liftMotor.setPower(-1);
-        sleep(1000);
+        sleep(500);
         robot.liftMotor.setPower(0);
 
         robot.leftGripper.setPosition(.4);

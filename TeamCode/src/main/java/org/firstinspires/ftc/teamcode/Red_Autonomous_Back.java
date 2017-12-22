@@ -26,7 +26,7 @@ public class Red_Autonomous_Back extends LinearOpMode
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;
+    static final double     DRIVE_GEAR_REDUCTION    = .5625 ;
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
 
@@ -64,7 +64,7 @@ public class Red_Autonomous_Back extends LinearOpMode
         robot.leftGripper.setPosition(0);
         robot.rightGripper.setPosition(1);
         robot.liftMotor.setPower(1);
-        sleep(1000);
+        sleep(250);
         robot.liftMotor.setPower(0);
     }
 
@@ -208,23 +208,23 @@ public class Red_Autonomous_Back extends LinearOpMode
         {
             if (!readingJewel)
             {
-                encoderDrive(.5, 13, -13);//Turn Right
-                encoderDrive(.5, 25, 25);//Forward
-                encoderDrive(.5, -13.5, 13.5);//Turn Left
+                encoderDrive(.3, 13, -13);//Turn Right
+                encoderDrive(.3, 25, 25);//Forward
+                encoderDrive(.3, -13.5, 13.5);//Turn Left
                 switch (enumColumn)
                 {
                     case RIGHT:
-                        encoderDrive(.5, 6, 6); //Left
+                        encoderDrive(.3, 6, 6); //Left
                         break;
                     case LEFT:
-                        encoderDrive(.5, 21.5, 21.5); //Right
+                        encoderDrive(.3, 21.5, 21.5); //Right
                         break;
                     case CENTER:
-                        encoderDrive(.5, 13, 13); //Center
+                        encoderDrive(.3, 13, 13); //Center
                         break;
                 }
-                encoderDrive(.5, 13.5, -13.5);//Turn Right
-                encoderDrive(.5, 7, 7);//Forward
+                encoderDrive(.3, 13.5, -13.5);//Turn Right
+                encoderDrive(.3, 7, 7);//Forward
                 robotMovementFinished = true;
             }
         }
@@ -233,7 +233,7 @@ public class Red_Autonomous_Back extends LinearOpMode
     public void endPhase()
     {
         robot.liftMotor.setPower(-1);
-        sleep(1000);
+        sleep(250);
         robot.liftMotor.setPower(0);
 
         robot.leftGripper.setPosition(.4);
@@ -241,7 +241,7 @@ public class Red_Autonomous_Back extends LinearOpMode
         sleep(1000);
 
         encoderDrive(.1, 3, 3);//Forward
-        encoderDrive(.5, -4, -4);//Backward
+        encoderDrive(.3, -4, -4);//Backward
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

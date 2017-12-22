@@ -12,8 +12,6 @@ public class TeleOpTester extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        double clawPosition = 0;
-
         robot.init(hardwareMap);
 
         telemetry.addData("Start", "TeleOp Test Ready");
@@ -45,13 +43,6 @@ public class TeleOpTester extends LinearOpMode {
                 robot.rightGripper.setPosition(0);
             }
 
-            //Relic
-            if(gamepad2.a) {
-                robot.relicMotor.setPower(1);
-            } else {
-                robot.relicMotor.setPower(0);
-            }
-
             //JS1 & JS2
             if(gamepad2.right_trigger < .5) {
                 robot.JSY.setPosition(1);
@@ -60,20 +51,6 @@ public class TeleOpTester extends LinearOpMode {
                 robot.JSY.setPosition(0);
                 robot.JSX.setPosition(0);
             }
-
-            // Claw
-            if(gamepad2.y){
-                clawPosition += .01;
-            }else{
-                if(clawPosition <= 0) {
-                    clawPosition = 0;
-                } else {
-                    clawPosition -= .01;
-                }
-            }
-            robot.claw.setPosition(clawPosition);
-
-
         }
     }
 }

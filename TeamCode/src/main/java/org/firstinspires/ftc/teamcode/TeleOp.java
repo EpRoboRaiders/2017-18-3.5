@@ -40,7 +40,6 @@ public class TeleOp extends LinearOpMode
         // Jewel & Wedge init
         robot.JSX.setPosition(.5);
         robot.JSY.setPosition(.7);
-        robot.wedge.setPosition(.5);
 
         while(opModeIsActive())
         {
@@ -79,26 +78,6 @@ public class TeleOp extends LinearOpMode
                 robot.rightMotor.setPower(-fltRight * dblSpeed);
             }
 
-            // Claw
-            if (gamepad2.right_bumper)
-            {
-                robot.claw.setPosition(.5);
-            }
-            else if (gamepad2.left_bumper)
-            {
-                robot.claw.setPosition(0);
-            }
-
-            // Claw Y Axis
-            if (gamepad2.dpad_up)
-            {
-                //robot.clawY.setPosition(1);
-            }
-            else if (gamepad2.dpad_down)
-            {
-                //robot.clawY.setPosition(0);
-            }
-
             // Lift
             float fltLift = gamepad2.left_stick_y;
             robot.liftMotor.setPower(-fltLift);
@@ -123,14 +102,13 @@ public class TeleOp extends LinearOpMode
                 robot.rightGripper.setPosition(.8);
             }
 
-            //Wedge for getting on balancing board
+            //FakeWedge
             if(gamepad2.left_bumper)
             {
-                robot.wedge.setPosition(0);
-            }
-            else if(gamepad2.right_bumper)
+                robot.fakeWedge.setPower(1);
+            } else
             {
-                robot.wedge.setPosition(.5);
+                robot.fakeWedge.setPower(0);
             }
 
             // Feedback

@@ -66,18 +66,16 @@ public class K9bot
     public DcMotor rightMotor = null;
     public Servo leftGripper = null;
     public Servo rightGripper = null;
-    public DcMotor relicMotor = null;
-    public Servo claw = null;
-    //public Servo clawY = null;
     //JSX = X movement of jewel, JSY = Y movement of jewel.
     public Servo JSY = null;
     public Servo JSX = null;
-    public Servo wedge = null;
     public ColorSensor colorSensor = null;
+    public DistanceSensor distanceSensor = null;
+    public CRServo fakeWedge = null;
 
     /* Local OpMode members. */
     HardwareMap hwMap  = null;
-    private ElapsedTime period  = new ElapsedTime();
+    private ElapsedTime period  = new ElapsedTime(); //useless
 
     /* Constructor */
     public K9bot()
@@ -94,13 +92,11 @@ public class K9bot
         leftMotor = hwMap.get(DcMotor.class, "LeftMotor");
         rightMotor = hwMap.get(DcMotor.class, "RightMotor");
         liftMotor = hwMap.get(DcMotor.class, "LiftMotor");
-        relicMotor = hwMap.get(DcMotor.class, "RelicMotor");
 
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
         liftMotor.setPower(0);
-        relicMotor.setPower(0);
 
         // Set motors direction
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -109,13 +105,14 @@ public class K9bot
         // Define and initialize ALL installed servos.
         leftGripper = hwMap.get(Servo.class, "Left Gripper");
         rightGripper = hwMap.get(Servo.class, "Right Gripper");
-        claw = hwMap.get(Servo.class, "Claw");
-        //clawY = hwMap.get(Servo.class, "Claw Y");
         JSY = hwMap.get(Servo.class, "Jewel Servo One");
         JSX = hwMap.get(Servo.class, "Jewel Servo Two");
-        wedge = hwMap.get(Servo.class, "Wedge");
+        fakeWedge = hwMap.get(CRServo.class, "Fake Wedge");
+
+        fakeWedge.setDirection(CRServo.Direction.REVERSE);
 
         // Define color/distance sensor
         colorSensor = hwMap.get(ColorSensor.class, "Color Sensor");
+        distanceSensor = hwMap.get(DistanceSensor.class, "Distance Sensor");
     }
 }
