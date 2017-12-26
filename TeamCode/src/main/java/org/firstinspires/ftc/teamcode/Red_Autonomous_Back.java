@@ -208,23 +208,23 @@ public class Red_Autonomous_Back extends LinearOpMode
         {
             if (!readingJewel)
             {
-                encoderDrive(.3, 13, -13);//Turn Right
-                encoderDrive(.3, 25, 25);//Forward
-                encoderDrive(.3, -13.5, 13.5);//Turn Left
+                encoderDrive(robot.autonomousSpeed, 13, -13);//Turn Right
+                encoderDrive(robot.autonomousSpeed, 25, 25);//Forward
+                encoderDrive(robot.autonomousSpeed, -13.5, 13.5);//Turn Left
                 switch (enumColumn)
                 {
                     case RIGHT:
-                        encoderDrive(.3, 6, 6); //Left
+                        encoderDrive(robot.autonomousSpeed, 6, 6); //Left
                         break;
                     case LEFT:
-                        encoderDrive(.3, 21.5, 21.5); //Right
+                        encoderDrive(robot.autonomousSpeed, 21.5, 21.5); //Right
                         break;
                     case CENTER:
-                        encoderDrive(.3, 13, 13); //Center
+                        encoderDrive(robot.autonomousSpeed, 13, 13); //Center
                         break;
                 }
-                encoderDrive(.3, 13.5, -13.5);//Turn Right
-                encoderDrive(.3, 7, 7);//Forward
+                encoderDrive(robot.autonomousSpeed, 13.5, -13.5);//Turn Right
+                encoderDrive(robot.autonomousSpeed, 7, 7);//Forward
                 robotMovementFinished = true;
             }
         }
@@ -240,8 +240,8 @@ public class Red_Autonomous_Back extends LinearOpMode
         robot.rightGripper.setPosition(.6);
         sleep(1000);
 
-        encoderDrive(.1, 3, 3);//Forward
-        encoderDrive(.3, -4, -4);//Backward
+        encoderDrive(.1, 4, 4);//Forward
+        encoderDrive(robot.autonomousSpeed, -4, -4);//Backward
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

@@ -61,7 +61,7 @@ public class TeleOp extends LinearOpMode
                 blnStillPressed = false;
             }
 
-            double dblSpeed = blnChangeSpeed ? 1 : .50;
+            double dblSpeed = blnChangeSpeed ? 1 : .5;
             if(gamepad1.right_bumper)
             {
                 robot.leftMotor.setPower(dblSpeed);

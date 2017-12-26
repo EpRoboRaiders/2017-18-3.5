@@ -60,6 +60,8 @@ vnt - Variant
 
 public class K9bot
 {
+    /*Set Variables*/
+    public final double autonomousSpeed = .2;
     /* Public OpMode members. */
     public DcMotor liftMotor = null;
     public DcMotor leftMotor = null;

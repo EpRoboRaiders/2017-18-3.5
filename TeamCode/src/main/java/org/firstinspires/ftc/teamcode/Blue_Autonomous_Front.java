@@ -26,7 +26,7 @@ public class Blue_Autonomous_Front extends LinearOpMode
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;
+    static final double     DRIVE_GEAR_REDUCTION    = .5625 ;
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
 
@@ -209,22 +209,22 @@ public class Blue_Autonomous_Front extends LinearOpMode
         {
             if (!readingJewel)
             {
-                encoderDrive(.5, -13, 13);//Turn Left
+                encoderDrive(robot.autonomousSpeed, -13, 13);//Turn Left
 
                 switch (enumColumn)
                 {
                     case RIGHT:
-                        encoderDrive(.5, 43, 43); //Left
+                        encoderDrive(robot.autonomousSpeed, 43, 43); //Left
                         break;
                     case LEFT:
-                        encoderDrive(.5, 28, 28); //Right
+                        encoderDrive(robot.autonomousSpeed, 28, 28); //Right
                         break;
                     case CENTER:
-                        encoderDrive(.5, 35.5, 35.5); //Center
+                        encoderDrive(robot.autonomousSpeed, 35.5, 35.5); //Center
                         break;
                 }
-                encoderDrive(.5, -13, 13);//Turn Left
-                encoderDrive(.5, 9, 9);//Forward
+                encoderDrive(robot.autonomousSpeed, -13, 13);//Turn Left
+                encoderDrive(robot.autonomousSpeed, 9, 9);//Forward
                 robotMovementFinished = true;
             }
         }
@@ -240,8 +240,8 @@ public class Blue_Autonomous_Front extends LinearOpMode
         robot.rightGripper.setPosition(.6);
         sleep(1000);
 
-        encoderDrive(.1, 2, 2);//Forward
-        encoderDrive(.5, -4, -4);//Backward
+        encoderDrive(.1, 4, 4);//Forward
+        encoderDrive(robot.autonomousSpeed, -4, -4);//Backward
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
