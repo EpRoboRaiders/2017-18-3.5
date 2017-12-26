@@ -53,7 +53,7 @@ public class Red_Autonomous_Back extends LinearOpMode
         initPhase();//Sets default positions of all parts
         readJewel(); //Does jewel code
         robotMovement(getColumnPos()); //Goes to proper column via VuMark
-        endPhase();//Puts block down and pushes in
+        endPhase();//Puts block down and pushes in and then
     }
 
     public void initPhase()
