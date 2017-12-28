@@ -45,7 +45,7 @@ public class Blue_Autonomous_Back extends LinearOpMode {
         telemetry.addData("Path 0", "Starting at %7d :%7d",
                 robot.leftMotor.getCurrentPosition(),
                 robot.rightMotor.getCurrentPosition());
-        telemetry.update(); //cntrl-a delete this code
+        telemetry.update();
 
         waitForStart();
 
