@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
@@ -84,23 +85,37 @@ public class Red_Autonomous_Front extends LinearOpMode
                 robot.JSX.setPosition(.5);
                 sleep(1500);
 
-                if (robot.colorSensor.blue() > robot.colorSensor.red()) //Test if blue
-                {
-                    blnSensorBlue = true;
-                }
-                else if (robot.colorSensor.red() > robot.colorSensor.blue()) //Test if red
-                {
-                    blnSensorRed = true;
-                }
-                if (blnSensorRed ^ blnSensorBlue) //Makes sure one color is true
-                {
-                    if (blnSensorBlue ^ blnBlueAlliance)
-                    {
-                        robot.JSX.setPosition(0);
-                    }
-                    else
-                    {
-                        robot.JSX.setPosition(1);
+                int moveForward = 0;
+                boolean readJewel = false;
+                while (!readJewel) {
+                    if (robot.distanceSensor.getDistance(DistanceUnit.INCH) <= 10) {
+                        readJewel = true;
+                        if (robot.colorSensor.blue() > robot.colorSensor.red()) //Test if blue
+                        {
+                            sleep(1000);
+                            blnSensorBlue = true;
+                        }
+                        else if (robot.colorSensor.red() > robot.colorSensor.blue()) //Test if red
+                        {
+                            sleep(1000);
+                            blnSensorRed = true;
+                        }
+                        if (blnSensorRed ^ blnSensorBlue) //Makes sure one color is true
+                        {
+                            if (blnSensorBlue ^ blnBlueAlliance) {
+                                robot.JSX.setPosition(0);
+                            } else {
+                                robot.JSX.setPosition(1);
+                            }
+                        }
+                    } else {
+                        encoderDrive(.1, .5, .5);
+                        moveForward++;
+                        sleep(1000);
+
+                        if(moveForward == 4){
+                            readJewel = true; //Fail safe for if we don't read the jewel after 4 movements
+                        }
                     }
                 }
 
