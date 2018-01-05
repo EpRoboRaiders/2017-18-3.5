@@ -126,7 +126,6 @@ public class Blue_Autonomous_Back extends LinearOpMode {
     }
 
     VuforiaLocalizer vuforia;
-
     public VuPos getColumnPos() //Vuforia code (reads the VuMark)
     {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());

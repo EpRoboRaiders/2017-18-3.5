@@ -48,6 +48,20 @@ public class TeleOp extends LinearOpMode
             float fltLeft = gamepad1.left_stick_y;
             float fltRight = gamepad1.right_stick_y;
 
+            //setting default speed
+            /*
+            if(gamepad1.dpad_down)
+            {
+            }
+            else if(gamepad1.dpad_right)
+            {
+            }
+            else if(gamepad1.dpad_up) {
+            }
+            else if(gamepad1.dpad_left)
+            {
+            }
+            */
             if(gamepad1.x)
             {
                 if(!blnStillPressed)
@@ -60,8 +74,8 @@ public class TeleOp extends LinearOpMode
             {
                 blnStillPressed = false;
             }
-
             double dblSpeed = blnChangeSpeed ? 1 : .5;
+
             if(gamepad1.right_bumper)
             {
                 robot.leftMotor.setPower(dblSpeed);
