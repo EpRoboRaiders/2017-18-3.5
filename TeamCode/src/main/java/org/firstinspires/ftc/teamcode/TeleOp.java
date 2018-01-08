@@ -25,6 +25,7 @@ public class TeleOp extends LinearOpMode
         //Initial declaration of variables used in TeleOp
         boolean blnChangeSpeed = true;
         boolean blnStillPressed = false;
+        double slowSpeed = .5;
 
         robot.init(hardwareMap);
 
@@ -49,20 +50,27 @@ public class TeleOp extends LinearOpMode
             float fltRight = gamepad1.right_stick_y;
 
             //setting default speed
-            /*
+
             if(gamepad1.dpad_down)
             {
+                blnChangeSpeed = true;
             }
             else if(gamepad1.dpad_right)
             {
+                slowSpeed = .75;
+                blnChangeSpeed = false;
             }
-            else if(gamepad1.dpad_up) {
+            else if(gamepad1.dpad_up)
+            {
+                slowSpeed = .50;
+                blnChangeSpeed = false;
             }
             else if(gamepad1.dpad_left)
             {
+                slowSpeed = .25;
+                blnChangeSpeed = false;
             }
-            */
-            if(gamepad1.x)
+            else if(gamepad1.x)
             {
                 if(!blnStillPressed)
                 {
@@ -74,7 +82,8 @@ public class TeleOp extends LinearOpMode
             {
                 blnStillPressed = false;
             }
-            double dblSpeed = blnChangeSpeed ? 1 : .5;
+            slowSpeed = blnChangeSpeed ? .5 : slowSpeed;
+            double dblSpeed = blnChangeSpeed ? 1 : slowSpeed;
 
             if(gamepad1.right_bumper)
             {
@@ -127,7 +136,7 @@ public class TeleOp extends LinearOpMode
 
             // Feedback
             telemetry.addLine("Driver Feedback");
-            telemetry.addData("Drive speed is ", (blnChangeSpeed) ? "100%" : "50%");
+            telemetry.addData("Drive speed is ", (blnChangeSpeed) ? "100%" : slowSpeed + "%");
             telemetry.addData("Lift Motor(Glyph)",  "%.2f", fltLift);
             telemetry.update();
             // Pause for 40 mS each cycle = update 25 times a second.
