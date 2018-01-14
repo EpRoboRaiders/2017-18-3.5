@@ -109,23 +109,44 @@ public class TeleOp extends LinearOpMode
             if (gamepad2.b)
             {
                 //Closed
+                /*
                 robot.leftGripper.setPosition(0);
                 robot.rightGripper.setPosition(1);
+                robot.TopLeftGripper.setPosition(1);
+                robot.TopRightGripper.setPosition(0);
+                */
+                robot.TopLeftBottomRightGripper.setPosition(1);
+                robot.TopRightBottomLeftGripper.setPosition(0);
+
             }
             else if (gamepad2.x)
             {
                 //Open More for collecting
+                /*
                 robot.leftGripper.setPosition(.4);
                 robot.rightGripper.setPosition(.6);
+                robot.TopLeftGripper.setPosition(.6);
+                robot.TopRightGripper.setPosition(.4);
+                */
+                robot.TopLeftBottomRightGripper.setPosition(.5);
+                robot.TopRightBottomLeftGripper.setPosition(.5);
+
             }
             else if (gamepad2.y)
             {
                 //Open Less for moving away from the cryptobox
+                /*
                 robot.leftGripper.setPosition(.2);
                 robot.rightGripper.setPosition(.8);
+                robot.TopLeftGripper.setPosition(.8);
+                robot.TopRightGripper.setPosition(.2);
+                */
+                robot.TopLeftBottomRightGripper.setPosition(.7);
+                robot.TopRightBottomLeftGripper.setPosition(.3);
+
             }
 
-            //FakeWedge
+            // FakeWedge
             if(gamepad2.left_bumper)
             {
                 robot.fakeWedge.setPower(1);

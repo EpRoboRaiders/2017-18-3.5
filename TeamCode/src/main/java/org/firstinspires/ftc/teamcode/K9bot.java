@@ -68,6 +68,10 @@ public class K9bot
     public DcMotor rightMotor = null;
     public Servo leftGripper = null;
     public Servo rightGripper = null;
+    public Servo TopLeftGripper = null;
+    public Servo TopRightGripper = null;
+    public Servo TopLeftBottomRightGripper = null;
+    public Servo TopRightBottomLeftGripper = null;
     //JSX = X movement of jewel, JSY = Y movement of jewel.
     public Servo JSY = null;
     public Servo JSX = null;
@@ -105,8 +109,12 @@ public class K9bot
         liftMotor.setDirection(DcMotor.Direction.REVERSE);
 
         // Define and initialize ALL installed servos.
-        leftGripper = hwMap.get(Servo.class, "Left Gripper");
-        rightGripper = hwMap.get(Servo.class, "Right Gripper");
+        //leftGripper = hwMap.get(Servo.class, "Left Gripper");
+        //rightGripper = hwMap.get(Servo.class, "Right Gripper");
+        //TopLeftGripper = hwMap.get(Servo.class, "Top Left Gripper");
+        //TopRightGripper = hwMap.get(Servo.class, "Top Right Gripper");
+        TopLeftBottomRightGripper = hwMap.get(Servo.class, "TLBR Gripper");
+        TopRightBottomLeftGripper = hwMap.get(Servo.class, "TRBL Gripper");
         JSY = hwMap.get(Servo.class, "Jewel Servo One");
         JSX = hwMap.get(Servo.class, "Jewel Servo Two");
         fakeWedge = hwMap.get(CRServo.class, "Fake Wedge");

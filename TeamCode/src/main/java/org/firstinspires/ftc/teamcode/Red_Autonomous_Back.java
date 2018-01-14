@@ -62,8 +62,8 @@ public class Red_Autonomous_Back extends LinearOpMode
         //Set servos to default positions
         robot.JSX.setPosition(.5);
         robot.JSY.setPosition(.7);
-        robot.leftGripper.setPosition(0);
-        robot.rightGripper.setPosition(1);
+        robot.TopLeftBottomRightGripper.setPosition(1);
+        robot.TopRightBottomLeftGripper.setPosition(0);
         robot.liftMotor.setPower(1);
         sleep(250);
         robot.liftMotor.setPower(0);
@@ -229,10 +229,10 @@ public class Red_Autonomous_Back extends LinearOpMode
                 switch (enumColumn)
                 {
                     case RIGHT:
-                        encoderDrive(robot.autonomousSpeed, 6, 6); //Left
+                        encoderDrive(robot.autonomousSpeed, 6, 6); //Right
                         break;
                     case LEFT:
-                        encoderDrive(robot.autonomousSpeed, 21.5, 21.5); //Right
+                        encoderDrive(robot.autonomousSpeed, 21.5, 21.5); //Left
                         break;
                     case CENTER:
                         encoderDrive(robot.autonomousSpeed, 13, 13); //Center
@@ -251,8 +251,8 @@ public class Red_Autonomous_Back extends LinearOpMode
         sleep(250);
         robot.liftMotor.setPower(0);
 
-        robot.leftGripper.setPosition(.4);
-        robot.rightGripper.setPosition(.6);
+        robot.TopLeftBottomRightGripper.setPosition(.5);
+        robot.TopRightBottomLeftGripper.setPosition(.5);
         sleep(1000);
 
         encoderDrive(.1, 4, 4);//Forward
