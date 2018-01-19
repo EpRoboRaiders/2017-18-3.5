@@ -63,30 +63,30 @@ public class K9bot
     /*Set Variables*/
     public final double autonomousSpeed = .2;
     /* Public OpMode members. */
-    public DcMotor liftMotor = null;
-    public DcMotor leftMotor = null;
-    public DcMotor rightMotor = null;
-    public Servo leftGripper = null;
-    public Servo rightGripper = null;
-    public Servo TopLeftGripper = null;
-    public Servo TopRightGripper = null;
-    public Servo TopLeftBottomRightGripper = null;
-    public Servo TopRightBottomLeftGripper = null;
-    //JSX = X movement of jewel, JSY = Y movement of jewel.
-    public Servo JSY = null;
-    public Servo JSX = null;
-    public ColorSensor colorSensor = null;
-    public DistanceSensor distanceSensor = null;
-    public CRServo fakeWedge = null;
+        public DcMotor liftMotor = null;
+        public DcMotor leftMotor = null;
+        public DcMotor rightMotor = null;
+        public Servo leftGripper = null;
+        public Servo rightGripper = null;
+        public Servo TopLeftGripper = null;
+        public Servo TopRightGripper = null;
+        public Servo TopLeftBottomRightGripper = null;
+        public Servo TopRightBottomLeftGripper = null;
+        //JSX = X movement of jewel, JSY = Y movement of jewel.
+        public Servo JSY = null;
+        public Servo JSX = null;
+        public ColorSensor colorSensor = null;
+        public DistanceSensor distanceSensor = null;
+        public CRServo fakeWedge = null;
 
     /* Local OpMode members. */
-    HardwareMap hwMap  = null;
-    private ElapsedTime period  = new ElapsedTime(); //useless
+        HardwareMap hwMap  = null;
+        private ElapsedTime period  = new ElapsedTime(); //useless
 
     /* Constructor */
     public K9bot()
-    {
-    }
+        {
+        }
 
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap)

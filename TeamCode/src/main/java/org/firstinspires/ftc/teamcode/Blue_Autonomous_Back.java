@@ -126,46 +126,53 @@ public class Blue_Autonomous_Back extends LinearOpMode {
     }
 
     VuforiaLocalizer vuforia;
-    public VuPos getColumnPos() //Vuforia code (reads the VuMark)
+    public Blue_Autonomous_Back.VuPos getColumnPos() //Vuforia code (reads the VuMark)
     {
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        parameters.vuforiaLicenseKey = "ARMl4sr/////AAAAGW7XCTx7E0rTsT4i0g6I9E8IY/EGEWdA5QHmgcnvsPFeuf+2cafgFWlJht6/m4ps4hdqUeDgqSaHurLTDfSET8oOvZUEOiMYDq2xVxNDQzW4Puz+Tl8pOFb1EfCrP28aBkcBkDfXDADiws03Ap/mD///h0HK5rVbe3KYhnefc0odh1F7ZZ1oxJy+A1w2Zb8JCXM/SWzAVvB1KEAnz87XRNeaJAon4c0gi9nLAdZlG0jnC6bx+m0140C76l14CTthmzSIdZMBkIb8/03aQIouFzLzz+K1fvXauT72TlDAbumhEak/s5pkN6L555F28Jf8KauwCnGyLnePxTm9/NKBQ4xW/bzWNpEdfY4CrBxFoSkq";
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT; // Use FRONT Camera (Change to BACK if you want to use that one)
-        parameters.cameraMonitorFeedback = VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES; // Display Axes
+        try {
+            int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+            VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+            parameters.vuforiaLicenseKey = "ARMl4sr/////AAAAGW7XCTx7E0rTsT4i0g6I9E8IY/EGEWdA5QHmgcnvsPFeuf+2cafgFWlJht6/m4ps4hdqUeDgqSaHurLTDfSET8oOvZUEOiMYDq2xVxNDQzW4Puz+Tl8pOFb1EfCrP28aBkcBkDfXDADiws03Ap/mD///h0HK5rVbe3KYhnefc0odh1F7ZZ1oxJy+A1w2Zb8JCXM/SWzAVvB1KEAnz87XRNeaJAon4c0gi9nLAdZlG0jnC6bx+m0140C76l14CTthmzSIdZMBkIb8/03aQIouFzLzz+K1fvXauT72TlDAbumhEak/s5pkN6L555F28Jf8KauwCnGyLnePxTm9/NKBQ4xW/bzWNpEdfY4CrBxFoSkq";
+            parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT; // Use FRONT Camera (Change to BACK if you want to use that one)
+            parameters.cameraMonitorFeedback = VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES; // Display Axes
 
-        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+            this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+            VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+            VuforiaTrackable relicTemplate = relicTrackables.get(0);
 
-        relicTrackables.activate(); // Activate Vuforia
-        runtime.reset();
-        while (opModeIsActive()) {
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark != RelicRecoveryVuMark.UNKNOWN) // Test to see if image is visable
-            {
-                if (vuMark == RelicRecoveryVuMark.LEFT) { // Test to see if Image is the "LEFT" image and display value.
-                    telemetry.addData("VuMark is", "Left");
-                    relicTrackables.deactivate(); // Deactivate Vuforia
-                    return VuPos.LEFT;
-                } else if (vuMark == RelicRecoveryVuMark.RIGHT) { // Test to see if Image is the "RIGHT" image and display values.
-                    telemetry.addData("VuMark is", "Right");
-                    relicTrackables.deactivate(); // Deactivate Vuforia
-                    return VuPos.RIGHT;
-                } else if (vuMark == RelicRecoveryVuMark.CENTER) { // Test to see if Image is the "CENTER" image and display values.
-                    telemetry.addData("VuMark is", "Center");
-                    relicTrackables.deactivate(); // Deactivate Vuforia
-                    return VuPos.CENTER;
+            relicTrackables.activate(); // Activate Vuforia
+            runtime.reset();
+            while (opModeIsActive()) {
+                RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+                if (vuMark != RelicRecoveryVuMark.UNKNOWN) // Test to see if image is visable
+                {
+                    if (vuMark == RelicRecoveryVuMark.LEFT) { // Test to see if Image is the "LEFT" image and display value.
+                        telemetry.addData("VuMark is", "Left");
+                        relicTrackables.deactivate(); // Deactivate Vuforia
+                        return Blue_Autonomous_Back.VuPos.LEFT;
+                    } else if (vuMark == RelicRecoveryVuMark.RIGHT) { // Test to see if Image is the "RIGHT" image and display values.
+                        telemetry.addData("VuMark is", "Right");
+                        relicTrackables.deactivate(); // Deactivate Vuforia
+                        return Blue_Autonomous_Back.VuPos.RIGHT;
+                    } else if (vuMark == RelicRecoveryVuMark.CENTER) { // Test to see if Image is the "CENTER" image and display values.
+                        telemetry.addData("VuMark is", "Center");
+                        relicTrackables.deactivate(); // Deactivate Vuforia
+                        return Blue_Autonomous_Back.VuPos.CENTER;
+                    }
+                } else {
+                    telemetry.addData("VuMark", "not visible");
+                    if (runtime.seconds() >= 5)
+                    {
+                        return Blue_Autonomous_Back.VuPos.CENTER;
+                    }
                 }
-            } else {
-                telemetry.addData("VuMark", "not visible");
-                if (runtime.seconds() >= 5) {
-                    return VuPos.CENTER;
-                }
+                telemetry.update();
             }
-            telemetry.update();
+            return Blue_Autonomous_Back.VuPos.CENTER;
         }
-        return VuPos.CENTER;
+        catch (Exception ex)
+        {
+            return Blue_Autonomous_Back.VuPos.CENTER;
+        }
     }
 
     public void encoderDrive(double speed, double leftInches, double rightInches)
