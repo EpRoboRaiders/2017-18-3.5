@@ -38,7 +38,7 @@ public class TeleOp extends LinearOpMode
 
         waitForStart();
 
-        // Jewel & Wedge init
+        // Jewel
         robot.JSX.setPosition(.5);
         robot.JSY.setPosition(.7);
 
@@ -144,15 +144,6 @@ public class TeleOp extends LinearOpMode
                 robot.TopLeftBottomRightGripper.setPosition(.7);
                 robot.TopRightBottomLeftGripper.setPosition(.3);
 
-            }
-
-            // FakeWedge
-            if(gamepad2.left_bumper)
-            {
-                robot.fakeWedge.setPower(1);
-            } else
-            {
-                robot.fakeWedge.setPower(0);
             }
 
             // Feedback

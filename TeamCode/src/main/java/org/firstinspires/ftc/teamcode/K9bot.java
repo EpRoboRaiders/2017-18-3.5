@@ -77,7 +77,6 @@ public class K9bot
         public Servo JSX = null;
         public ColorSensor colorSensor = null;
         public DistanceSensor distanceSensor = null;
-        public CRServo fakeWedge = null;
 
     /* Local OpMode members. */
         HardwareMap hwMap  = null;
@@ -115,11 +114,8 @@ public class K9bot
         //TopRightGripper = hwMap.get(Servo.class, "Top Right Gripper");
         TopLeftBottomRightGripper = hwMap.get(Servo.class, "TLBR Gripper");
         TopRightBottomLeftGripper = hwMap.get(Servo.class, "TRBL Gripper");
-        JSY = hwMap.get(Servo.class, "Jewel Servo One");
-        JSX = hwMap.get(Servo.class, "Jewel Servo Two");
-        fakeWedge = hwMap.get(CRServo.class, "Fake Wedge");
-
-        fakeWedge.setDirection(CRServo.Direction.REVERSE);
+        JSY = hwMap.get(Servo.class, "Jewel Servo Y");
+        JSX = hwMap.get(Servo.class, "Jewel Servo X");
 
         // Define color/distance sensor
         colorSensor = hwMap.get(ColorSensor.class, "Color Sensor");
