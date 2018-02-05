@@ -1,3 +1,11 @@
+/*
+Coding References
+
+Multi-threading: Lines 84-86
+Jewel: Lines 87-134
+Vuforia: Lines 139-186
+Encoders/Movement Controls: Lines 188-252
+ */
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -66,7 +74,7 @@ public class Blue_Autonomous_Front extends LinearOpMode
         robot.TopLeftBottomRightGripper.setPosition(1);
         robot.TopRightBottomLeftGripper.setPosition(0);
         robot.liftMotor.setPower(1);
-        sleep(500);
+        sleep(1000);
         robot.liftMotor.setPower(0);
     }
 
@@ -246,7 +254,7 @@ public class Blue_Autonomous_Front extends LinearOpMode
     public void endPhase()
     {
         robot.liftMotor.setPower(-1);
-        sleep(500);
+        sleep(1000);
         robot.liftMotor.setPower(0);
 
         robot.TopLeftBottomRightGripper.setPosition(.5);
