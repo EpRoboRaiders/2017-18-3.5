@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -101,9 +102,25 @@ public class TeleOp extends LinearOpMode
                 robot.rightMotor.setPower(-fltRight * dblSpeed);
             }
 
+            //Set Mode Of Touch Sensor
+            robot.touchSensor.setMode(DigitalChannel.Mode.INPUT);
+
             // Lift
-            float fltLift = gamepad2.left_stick_y;
-            robot.liftMotor.setPower(-fltLift);
+            float fltLift = -gamepad2.left_stick_y;
+            if (robot.touchSensor.getState() == false/*false is pressed*/) {
+                if(fltLift > 0){
+                    robot.liftMotor.setPower(fltLift);
+                    telemetry.addData("Digital Touch", "Button is pressed, and you're trying to go up");
+
+                } else {
+                    robot.liftMotor.setPower(0);
+                    telemetry.addData("Digital Touch", "Button is pressed, and you're trying to go down");
+
+                }
+            } else {
+                robot.liftMotor.setPower(fltLift);
+                telemetry.addData("Digital Touch", "Button is not pressed");
+            }
 
             // Gripper
             if (gamepad2.b)

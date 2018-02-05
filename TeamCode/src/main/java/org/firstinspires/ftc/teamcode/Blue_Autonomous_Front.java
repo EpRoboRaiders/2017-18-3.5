@@ -120,6 +120,7 @@ public class Blue_Autonomous_Front extends LinearOpMode
                     } else {
                         encoderDrive(.1, .5, .5);
                         moveForward++;
+                        robot.JSY.setPosition(.06);
                         sleep(1000);
 
                         if(moveForward == 4){

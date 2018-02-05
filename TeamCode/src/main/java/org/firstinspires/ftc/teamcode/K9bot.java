@@ -39,6 +39,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 /*************************************************************************
             Hungarian Notation Key
@@ -77,6 +78,7 @@ public class K9bot
         public Servo JSX = null;
         public ColorSensor colorSensor = null;
         public DistanceSensor distanceSensor = null;
+        public DigitalChannel touchSensor = null;
 
     /* Local OpMode members. */
         HardwareMap hwMap  = null;
@@ -105,7 +107,6 @@ public class K9bot
 
         // Set motors direction
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        liftMotor.setDirection(DcMotor.Direction.REVERSE);
 
         // Define and initialize ALL installed servos.
         //leftGripper = hwMap.get(Servo.class, "Left Gripper");
@@ -117,8 +118,9 @@ public class K9bot
         JSY = hwMap.get(Servo.class, "Jewel Servo Y");
         JSX = hwMap.get(Servo.class, "Jewel Servo X");
 
-        // Define color/distance sensor
+        // Define color/distance/touch sensor
         colorSensor = hwMap.get(ColorSensor.class, "Color Sensor");
         distanceSensor = hwMap.get(DistanceSensor.class, "Distance Sensor");
+        touchSensor = hwMap.get(DigitalChannel.class, "Touch Sensor");
     }
 }
